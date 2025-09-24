@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bharat</title>
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+<style> @-ms-viewport { width: device-width; } </style>
+<link rel="stylesheet" href="vendor/reset.min.css">
+<link rel="stylesheet" href="style.css">
+
+<style>
+  /* The Modal (background) */
+  .modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2000; /* Sit on top of everything */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+    /* Use flexbox to center the content */
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Class to show the modal */
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #1e1e1e;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 900px;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  }
+
+  /* The Close Button */
+  .close-btn {
+    color: #aaaaaa;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+  }
+
+  .close-btn:hover,
+  .close-btn:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* === THIS IS THE CORRECTED PART === */
+  #popupVideo {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* This is the magic line that fixes the fit */
+    aspect-ratio: 16 / 9;
+    background: #000; /* Ensures the background is black if tiny bars appear */
+  }
+</style>
+</head>
+<body class="multiple-scenes view-control-buttons">
+
+<div id="pano"></div>
+
+<div id="sceneList">
+  <ul class="scenes">
+    
+      <a href="javascript:void(0)" class="scene" data-id="0-pxl_20250922_132525545photosphere">
+        <li class="text">Howrah Image1</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="1-pxl_20250922_132926649photosphere-1">
+        <li class="text">Howrah Image2</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="2-ar3">
+        <li class="text">Howrah Image3</li>
+      </a>
+    
+  </ul>
+</div>
+
+<div id="titleBar">
+  <h1 class="sceneName"></h1>
+</div>
+
+<a href="javascript:void(0)" id="autorotateToggle">
+  <img class="icon off" src="img/play.png">
+  <img class="icon on" src="img/pause.png">
+</a>
+
+<a href="javascript:void(0)" id="fullscreenToggle">
+  <img class="icon off" src="img/fullscreen.png">
+  <img class="icon on" src="img/windowed.png">
+</a>
+
+<a href="javascript:void(0)" id="sceneListToggle">
+  <img class="icon off" src="img/expand.png">
+  <img class="icon on" src="img/collapse.png">
+</a>
+
+<a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1">
+  <img class="icon" src="img/up.png">
+</a>
+<a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2">
+  <img class="icon" src="img/down.png">
+</a>
+<a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3">
+  <img class="icon" src="img/left.png">
+</a>
+<a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4">
+  <img class="icon" src="img/right.png">
+</a>
+<a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5">
+  <img class="icon" src="img/plus.png">
+</a>
+<a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6">
+  <img class="icon" src="img/minus.png">
+</a>
+
+<a href="../Howrah.html" class="back-button">← Back to Sites</a>
+
+<div class="more-options-container">
+  <div id="more-options-panel" class="more-options-panel">
+      <a href="#" id="openVideoBtn">Video</a>
+      <a href="Shop/Shop.html">Shop</a>
+  </div>
+  <button id="more-options-btn" class="more-options-btn">
+      More Options ▲ 
+  </button>
+</div>
+
+<div id="videoModal" class="modal-overlay">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <video id="popupVideo" controls>
+      <source src="Howrah.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+<script src="vendor/screenfull.min.js" ></script>
+<script src="vendor/bowser.min.js" ></script>
+<script src="vendor/marzipano.js" ></script>
+
+<script src="data.js"></script>
+<script src="index.js"></script>
+
+<script>
+  // --- Existing script for the More Options menu ---
+  const moreOptionsBtn = document.getElementById('more-options-btn');
+  const moreOptionsPanel = document.getElementById('more-options-panel');
+  moreOptionsBtn.addEventListener('click', () => {
+      const isOpen = moreOptionsPanel.classList.toggle('open');
+      moreOptionsBtn.innerHTML = isOpen ? 'More Options &#9660;' : 'More Options &#9650;';
+  });
+
+
+  // --- START: New script for the Video Modal ---
+
+  // Get the necessary elements
+  const videoModal = document.getElementById('videoModal');
+  const openVideoBtn = document.getElementById('openVideoBtn');
+  const closeBtn = document.querySelector('.close-btn');
+  const video = document.getElementById('popupVideo');
+
+  // Function to open the modal
+  function openModal() {
+    videoModal.classList.add('active');
+  }
+
+  // Function to close the modal
+  function closeModal() {
+    videoModal.classList.remove('active');
+    video.pause(); // Pause the video when the modal is closed
+  }
+
+  // Event listener to open the modal when the "Videos" link is clicked
+  openVideoBtn.addEventListener('click', (event) => {
+    event.preventDefault(); // Prevents the link from jumping to the top of the page
+    openModal();
+  });
+
+  // Event listener to close the modal with the 'X' button
+  closeBtn.addEventListener('click', closeModal);
+
+  // Event listener to close the modal if the user clicks on the dark overlay
+  videoModal.addEventListener('click', (event) => {
+    if (event.target === videoModal) {
+      closeModal();
+    }
+  });
+
+  // Event listener for the spacebar key
+  document.addEventListener('keydown', (event) => {
+    // Check if the modal is open and the spacebar was pressed
+    if (videoModal.classList.contains('active') && event.code === 'Space') {
+      event.preventDefault(); // Prevents the page from scrolling
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+  });
+  // --- END: New script for the Video Modal ---
+
+</script>
+
+<script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2025/09/23/10/20250923102557-RWZC9S19.js" defer></script>
+
+</body>
+</html>
