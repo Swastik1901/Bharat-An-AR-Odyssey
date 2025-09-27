@@ -49,44 +49,15 @@
         text-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
       }
 
-      .sloka:nth-child(1) {
-        top: 10%;
-        left: 15%;
-        animation-delay: 0s;
-      }
-      .sloka:nth-child(2) {
-        top: 20%;
-        left: 70%;
-        animation-delay: 5s;
-        font-size: 2.5vw;
-      }
-      .sloka:nth-child(3) {
-        top: 50%;
-        left: 40%;
-        animation-delay: 10s;
-      }
-      .sloka:nth-child(4) {
-        top: 80%;
-        left: 80%;
-        animation-delay: 15s;
-        font-size: 1.8vw;
-      }
-      .sloka:nth-child(5) {
-        top: 75%;
-        left: 10%;
-        animation-delay: 20s;
-      }
+      .sloka:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+      .sloka:nth-child(2) { top: 20%; left: 70%; animation-delay: 5s; font-size: 2.5vw; }
+      .sloka:nth-child(3) { top: 50%; left: 40%; animation-delay: 10s; }
+      .sloka:nth-child(4) { top: 80%; left: 80%; animation-delay: 15s; font-size: 1.8vw; }
+      .sloka:nth-child(5) { top: 75%; left: 10%; animation-delay: 20s; }
 
       @keyframes fadeInOut {
-        0%,
-        100% {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        50% {
-          opacity: 0.7;
-          transform: translateY(0);
-        }
+        0%, 100% { opacity: 0; transform: translateY(10px); }
+        50% { opacity: 0.7; transform: translateY(0); }
       }
 
       /* Search Box styles */
@@ -96,11 +67,36 @@
         color: #d4af37;
         transition: all 0.3s ease;
       }
-
       .search-box:focus {
         outline: none;
         border-color: #d4af37;
         box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+      }
+
+      /* --- NEW: Tab Button Styles --- */
+      .tab-button {
+        font-family: 'Cinzel', serif;
+        padding: 1rem 2rem;
+        flex: 1;
+        text-align: center;
+        cursor: pointer;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: rgba(212, 175, 55, 0.6);
+        border-right: 1px solid rgba(212, 175, 55, 0.3);
+        transition: all 0.3s ease;
+      }
+      .tab-button:last-child {
+        border-right: none;
+      }
+      .tab-button:hover {
+        color: #D4AF37;
+        background-color: rgba(212, 175, 55, 0.1);
+      }
+      .tab-button.active {
+        color: #D4AF37;
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
+        background-color: rgba(212, 175, 55, 0.05);
       }
 
       /* Tilted Card animation styles */
@@ -117,14 +113,14 @@
         z-index: 1;
       }
 
-      /* --- NEW: Back Button Styling --- */
+      /* Back Button Styling */
       .back-button {
         position: fixed;
         top: 2rem;
         left: 2rem;
         z-index: 10;
-        width: 48px; /* 3rem */
-        height: 48px; /* 3rem */
+        width: 48px;
+        height: 48px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -159,7 +155,7 @@
         transform: translateZ(-1px);
       }
       .city-card-figure:hover::before {
-        opacity: 0.25; /* Dimmed the glow from 0.4 */
+        opacity: 0.25;
       }
 
       .city-card-inner {
@@ -167,8 +163,8 @@
         transform-style: preserve-3d;
         background-color: rgba(26, 15, 15, 0.6);
         backdrop-filter: blur(10px);
-        border-radius: 0.75rem; /* 12px */
-        padding: 1rem; /* 16px */
+        border-radius: 0.75rem;
+        padding: 1rem;
         border: 1px solid rgba(212, 175, 55, 0.3);
         will-change: transform;
         width: 100%;
@@ -184,13 +180,13 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 0.375rem; /* 6px */
+        border-radius: 0.375rem;
       }
 
-      /* City name overlay style */
+      /* Card content overlay style */
       .card-content {
         position: absolute;
-        bottom: 1.5rem; /* 24px */
+        bottom: 1.5rem;
         left: 50%;
         transform: translateX(-50%);
         font-family: "Cinzel", serif;
@@ -207,29 +203,18 @@
   </head>
   <body class="p-4 sm:p-8 relative">
     <a href="../Cities.html" class="back-button" aria-label="Go back">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M15.75 19.5L8.25 12l7.5-7.5"
-        />
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
       </svg>
     </a>
 
     <div class="absolute top-4 right-4 sm:top-8 sm:right-8 z-10">
       <a href="Login.html" id="login-link" class="bg-red-900 text-[#D4AF37] font-['Cinzel'] font-bold py-2 px-6 rounded-lg hover:bg-red-800 transition-colors duration-300 text-sm">
-          Login
+        Login
       </a>
-
       <div id="user-profile" class="hidden items-center space-x-4">
-          <span class="text-white text-lg">Welcome, <span id="user-name" class="font-bold"></span>!</span>
-          <button id="logout-btn" class="bg-red-900 text-[#D4AF37] font-['Cinzel'] font-bold py-2 px-6 rounded-lg hover:bg-red-800 transition-colors duration-300 text-sm">Logout</button>
+        <span class="text-white text-lg">Welcome, <span id="user-name" class="font-bold"></span>!</span>
+        <button id="logout-btn" class="bg-red-900 text-[#D4AF37] font-['Cinzel'] font-bold py-2 px-6 rounded-lg hover:bg-red-800 transition-colors duration-300 text-sm">Logout</button>
       </div>
     </div>
 
@@ -242,117 +227,142 @@
     </div>
 
     <main class="container mx-auto text-center">
-      <h1
-        class="main-title text-3xl sm:text-4xl md:text-5xl font-bold mb-4 mt-8"
-      >
+      <h1 class="main-title text-3xl sm:text-4xl md:text-5xl font-bold mb-4 mt-8">
         Explore The Heritage sites
       </h1>
 
-      <div class="mb-12">
-        <input
-          type="text"
-          id="citySearch"
-          onkeyup="searchheritage()"
-          placeholder="Search for a heritage..."
-          class="search-box w-full max-w-lg mx-auto py-3 px-6 rounded-lg text-lg tracking-wider"
-        />
+      <div class="mb-8">
+        <input type="text" id="citySearch" onkeyup="searchheritage()" placeholder="Search for a heritage..." class="search-box w-full max-w-lg mx-auto py-3 px-6 rounded-lg text-lg tracking-wider" />
       </div>
 
-      <div
-        id="cityGrid"
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 md:gap-12"
-      >
-        <a href="Howrah/Howrah.html">
-          <figure class="city-card-wrapper city-card-figure h-72">
-            <div class="city-card-inner">
-              <img
-                src="Howrahheritage.jpeg"
-                alt="Howrah"
-                class="city-card-img"
-                onerror="this.onerror=null;this.src='https://placehold.co/400x300/4a2a2a/D4AF37?text=Image+Not+Found';"
-              />
-              <h3 class="card-content text-xl font-bold">Howrah</h3>
-            </div>
-          </figure>
-        </a>
-
-        <a href="Shaheed Minar/Shaheed.html">
-          <figure class="city-card-wrapper city-card-figure h-72">
-            <div class="city-card-inner">
-              <img
-                src="../Kolkata/Shaheed.jpg"
-                alt="Jaipur"
-                class="city-card-img"
-                onerror="this.onerror=null;this.src='https://placehold.co/400x300/4a2a2a/D4AF37?text=Image+Not+Found';"
-              />
-              <h3 class="card-content text-xl font-bold">Shaheed minar</h3>
-            </div>
-          </figure>
-        </a>
-
-        <a href="Prince ghat/Prince.html">
-          <figure class="city-card-wrapper city-card-figure h-72">
-            <div class="city-card-inner">
-              <img
-                src="../Kolkata/PrinsepGhat.jpeg"
-                alt="Mumbai"
-                class="city-card-img"
-                onerror="this.onerror=null;this.src='https://placehold.co/400x300/4a2a2a/D4AF37?text=Image+Not+Found';"
-              />
-              <h3 class="card-content text-xl font-bold">Prinsep ghat</h3>
-            </div>
-          </figure>
-        </a>
-
-        <a href="#">
-          <figure class="city-card-wrapper city-card-figure h-72">
-            <div class="city-card-inner">
-              <img
-                src="https://placehold.co/400x300/4a2a2a/D4AF37?text=Victoria"
-                alt="Delhi"
-                class="city-card-img"
-                onerror="this.onerror=null;this.src='https://placehold.co/400x300/4a2a2a/D4AF37?text=Image+Not+Found';"
-              />
-              <h3 class="card-content text-xl font-bold">Victoria Memorial</h3>
-            </div>
-          </figure>
-        </a>
-
-        <a href="#">
-          <figure class="city-card-wrapper city-card-figure h-72">
-            <div class="city-card-inner">
-              <img
-                src="https://placehold.co/400x300/4a2a2a/D4AF37?text=Kalighat"
-                alt="Agra"
-                class="city-card-img"
-                onerror="this.onerror=null;this.src='https://placehold.co/400x300/4a2a2a/D4AF37?text=Image+Not+Found';"
-              />
-              <h3 class="card-content text-xl font-bold">Kalighat</h3>
-            </div>
-          </figure>
-        </a>
+      <div class="mb-12 max-w-4xl mx-auto flex justify-center border-y border-yellow-800/50">
+          <button id="sites-btn" onclick="showSection('sites')" class="tab-button active">SITES</button>
+          <button id="map-btn" onclick="showSection('map')" class="tab-button">MAP</button>
+          <button id="shop-btn" onclick="showSection('shop')" class="tab-button">SHOP</button>
       </div>
+
+      <div id="sites-content">
+        <div id="cityGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 md:gap-12">
+            <a href="Howrah/Howrah.html">
+                <figure class="city-card-wrapper city-card-figure h-72">
+                    <div class="city-card-inner">
+                        <img src="Howrahheritage.jpeg" alt="Howrah" class="city-card-img" />
+                        <h3 class="card-content text-xl font-bold">Howrah</h3>
+                    </div>
+                </figure>
+            </a>
+            <a href="Shaheed Minar/Shaheed.html">
+                <figure class="city-card-wrapper city-card-figure h-72">
+                    <div class="city-card-inner">
+                        <img src="../Kolkata/Shaheed.jpg" alt="Shaheed Minar" class="city-card-img" />
+                        <h3 class="card-content text-xl font-bold">Shaheed minar</h3>
+                    </div>
+                </figure>
+            </a>
+            <a href="Prince ghat/Prince.html">
+                <figure class="city-card-wrapper city-card-figure h-72">
+                    <div class="city-card-inner">
+                        <img src="../Kolkata/PrinsepGhat.jpeg" alt="Prinsep Ghat" class="city-card-img" />
+                        <h3 class="card-content text-xl font-bold">Prinsep ghat</h3>
+                    </div>
+                </figure>
+            </a>
+            <a href="#">
+                <figure class="city-card-wrapper city-card-figure h-72">
+                    <div class="city-card-inner">
+                        <img src="https://placehold.co/400x300/4a2a2a/D4AF37?text=Victoria" alt="Victoria Memorial" class="city-card-img" />
+                        <h3 class="card-content text-xl font-bold">Victoria Memorial</h3>
+                    </div>
+                </figure>
+            </a>
+            <a href="#">
+                <figure class="city-card-wrapper city-card-figure h-72">
+                    <div class="city-card-inner">
+                        <img src="https://placehold.co/400x300/4a2a2a/D4AF37?text=Kalighat" alt="Kalighat" class="city-card-img" />
+                        <h3 class="card-content text-xl font-bold">Kalighat</h3>
+                    </div>
+                </figure>
+            </a>
+        </div>
+      </div>
+
+      <div id="map-content" class="hidden">
+        <div class="w-full h-[60vh] rounded-lg overflow-hidden border-2 border-yellow-800/50">
+           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d235813.78589139504!2d88.18263150172604!3d22.53545199991319!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f882db4908f667%3A0x43e330e68f6c2cbc!2sKolkata%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1727432328401!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+      
+      <div id="shop-content" class="hidden">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 md:gap-12">
+            <a href="#">
+                <figure class="city-card-wrapper city-card-figure h-72">
+                    <div class="city-card-inner">
+                        <img src="https://placehold.co/400x300/4a2a2a/D4AF37?text=Miniature" alt="Souvenir 1" class="city-card-img" />
+                        <h3 class="card-content text-xl font-bold">Heritage Miniature</h3>
+                    </div>
+                </figure>
+            </a>
+            <a href="#">
+                <figure class="city-card-wrapper city-card-figure h-72">
+                    <div class="city-card-inner">
+                        <img src="https://placehold.co/400x300/4a2a2a/D4AF37?text=T-Shirt" alt="Souvenir 2" class="city-card-img" />
+                        <h3 class="card-content text-xl font-bold">Cultural T-Shirt</h3>
+                    </div>
+                </figure>
+            </a>
+            <a href="#">
+                <figure class="city-card-wrapper city-card-figure h-72">
+                    <div class="city-card-inner">
+                        <img src="https://placehold.co/400x300/4a2a2a/D4AF37?text=Art+Print" alt="Souvenir 3" class="city-card-img" />
+                        <h3 class="card-content text-xl font-bold">Art Print</h3>
+                    </div>
+                </figure>
+            </a>
+            <a href="#">
+                <figure class="city-card-wrapper city-card-figure h-72">
+                    <div class="city-card-inner">
+                        <img src="https://placehold.co/400x300/4a2a2a/D4AF37?text=History+Book" alt="Souvenir 4" class="city-card-img" />
+                        <h3 class="card-content text-xl font-bold">History Book</h3>
+                    </div>
+                </figure>
+            </a>
+        </div>
+      </div>
+
     </main>
 
     <script>
+      // === NEW: Tab Switching Logic ===
+      function showSection(sectionName) {
+        // Hide all content sections
+        document.getElementById('sites-content').classList.add('hidden');
+        document.getElementById('map-content').classList.add('hidden');
+        document.getElementById('shop-content').classList.add('hidden');
+
+        // Deactivate all tab buttons
+        document.getElementById('sites-btn').classList.remove('active');
+        document.getElementById('map-btn').classList.remove('active');
+        document.getElementById('shop-btn').classList.remove('active');
+
+        // Show the selected section and activate its button
+        document.getElementById(sectionName + '-content').classList.remove('hidden');
+        document.getElementById(sectionName + '-btn').classList.add('active');
+      }
+
       // Search functionality
       function searchheritage() {
         let input = document.getElementById("citySearch");
         let filter = input.value.toUpperCase();
         let grid = document.getElementById("cityGrid");
-        // Select the <a> tags which are the actual grid items
         let cards = grid.getElementsByTagName("a");
 
         for (let i = 0; i < cards.length; i++) {
-          // Find the h3 tag within the <a> tag
           let h3 = cards[i].getElementsByTagName("h3")[0];
           if (h3) {
             let txtValue = h3.textContent || h3.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
-              // Show the <a> tag
               cards[i].style.display = "";
             } else {
-              // Hide the <a> tag
               cards[i].style.display = "none";
             }
           }
@@ -378,10 +388,8 @@
             const rect = card.getBoundingClientRect();
             const offsetX = e.clientX - rect.left - rect.width / 2;
             const offsetY = e.clientY - rect.top - rect.height / 2;
-
             const rotationX = (offsetY / (rect.height / 2)) * -rotateAmplitude;
             const rotationY = (offsetX / (rect.width / 2)) * rotateAmplitude;
-
             rotateX.set(rotationX);
             rotateY.set(rotationY);
           });
@@ -397,43 +405,35 @@
           });
 
           motion.animate(
-            (t) => {
+            () => {
               cardInner.style.transform = `scale(${scale.get()}) rotateX(${rotateX.get()}deg) rotateY(${rotateY.get()}deg)`;
-            },
-            {
-              duration: Infinity,
-            }
+            }, { duration: Infinity }
           );
         });
       });
     </script>
-      <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const token = localStorage.getItem('token');
-            const userName = localStorage.getItem('name');
+    <script>
+      // Login/Logout Logic
+      document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('token');
+        const userName = localStorage.getItem('name');
+        const loginLink = document.getElementById('login-link');
+        const userProfile = document.getElementById('user-profile');
+        const userNameSpan = document.getElementById('user-name');
+        const logoutBtn = document.getElementById('logout-btn');
 
-            const loginLink = document.getElementById('login-link');
-            const userProfile = document.getElementById('user-profile');
-            const userNameSpan = document.getElementById('user-name');
-            const logoutBtn = document.getElementById('logout-btn');
-
-            if (token && userName) {
-                // If the user is logged in:
-                // 1. Hide the login link
-                loginLink.classList.add('hidden');
-                // 2. Show the user profile section
-                userProfile.classList.remove('hidden');
-                userProfile.style.display = 'flex'; // Make it visible
-                userNameSpan.textContent = userName;
-
-                // 3. Make the logout button work
-                logoutBtn.addEventListener('click', () => {
-                    localStorage.removeItem('token');
-                    localStorage.removeItem('name');
-                    window.location.href = 'Heritage.html';
-                });
-            }
-        });
+        if (token && userName) {
+          loginLink.classList.add('hidden');
+          userProfile.classList.remove('hidden');
+          userProfile.style.display = 'flex';
+          userNameSpan.textContent = userName;
+          logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('name');
+            window.location.href = 'Heritage.html';
+          });
+        }
+      });
     </script>
   </body>
 </html>
