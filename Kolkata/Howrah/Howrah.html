@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;500;600&display-swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         /* Base theme */
         body {
@@ -133,7 +133,7 @@
             background-color: rgba(0, 0, 0, 0.2);
         }
         
-        /* About & Gallery Section Styles */
+        /* About, Gallery, & 3D Model Section Styles */
         .content-section {
             max-width: 1190px;
             margin: 4rem auto 0;
@@ -168,6 +168,25 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease;
+        }
+
+        /* Responsive iframe container for the 3D model */
+        .model-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .model-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
 
         /* Lightbox/Modal Styles */
@@ -308,6 +327,9 @@
                     <a href="AR VIEW/index.html" class="menu__item-link"><span>AR View</span></a>
                 </div>
                 <div class="menu__item">
+                    <a href="#" id="model-link" class="menu__item-link"><span>3D Model</span></a>
+                </div>
+                <div class="menu__item">
                     <a href="#" id="gallery-link" class="menu__item-link"><span>Gallery</span></a>
                 </div>
             </nav>
@@ -325,6 +347,14 @@
         <p class="mt-4">
             The height of the Bridge at the supporting towers on the both ends in 300 feet. Each tower has a constant width of 11 feet and a tapering from 8’6’’ to 4’6’’ at the top. The entire structure is laid on main piers of re-enforced concrete monoliths with steel ceiling edges. Each pier is 181’6” long by 81’6” wide and is amongst the largest in the world. The monoliths and grinders on Calcutta side are 103 feet deep and on the Howrah side it is 88 feet deep. These monoliths are the heaviest in the world.
         </p>
+    </section>
+
+    <!-- 3D Model Section -->
+    <section id="model-section" class="content-section hidden">
+        <p class="mb-8">Explore a fully interactive 3D model of the Howrah Bridge. Click and drag to rotate, scroll to zoom, and discover its intricate structure from all angles.</p>
+        <div class="model-container">
+            <iframe src="https://3dwarehouse.sketchup.com/embed/fc8065bf076ff68662a9269c0487e717?token=zv3XmXKsOtg=&binaryName=s21" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" allowfullscreen></iframe>
+        </div>
     </section>
 
     <section id="gallery-section" class="content-section hidden">
@@ -357,23 +387,40 @@
             // --- Section Toggling Logic ---
             const aboutLink = document.getElementById('about-link');
             const galleryLink = document.getElementById('gallery-link');
+            const modelLink = document.getElementById('model-link');
+
             const aboutSection = document.getElementById('about-section');
             const gallerySection = document.getElementById('gallery-section');
+            const modelSection = document.getElementById('model-section');
 
             aboutLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 aboutSection.classList.remove('hidden');
                 gallerySection.classList.add('hidden');
+                modelSection.classList.add('hidden');
                 aboutLink.classList.add('active');
                 galleryLink.classList.remove('active');
+                modelLink.classList.remove('active');
             });
 
             galleryLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 gallerySection.classList.remove('hidden');
                 aboutSection.classList.add('hidden');
+                modelSection.classList.add('hidden');
                 galleryLink.classList.add('active');
                 aboutLink.classList.remove('active');
+                modelLink.classList.remove('active');
+            });
+
+            modelLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                modelSection.classList.remove('hidden');
+                aboutSection.classList.add('hidden');
+                gallerySection.classList.add('hidden');
+                modelLink.classList.add('active');
+                aboutLink.classList.remove('active');
+                galleryLink.classList.remove('active');
             });
             
             // --- Lightbox Logic ---
@@ -406,3 +453,4 @@
     <script src="https://files.bpcontent.cloud/2025/09/23/10/20250923102557-RWZC9S19.js" defer></script>
 </body>
 </html>
+ 
